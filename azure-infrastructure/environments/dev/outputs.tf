@@ -1,5 +1,5 @@
 output "resource_group_name" {
-  description = "Main resource group name"
+  description = "Resource group name"
   value       = azurerm_resource_group.main.name
 }
 
@@ -8,62 +8,48 @@ output "aks_cluster_name" {
   value       = module.aks.cluster_name
 }
 
-output "aks_cluster_id" {
-  description = "AKS cluster ID"
-  value       = module.aks.cluster_id
-}
-
 output "acr_login_server" {
   description = "ACR login server"
   value       = module.acr.login_server
 }
 
-output "acr_name" {
-  description = "ACR name"
-  value       = module.acr.registry_name
-}
-
 output "postgres_fqdn" {
-  description = "PostgreSQL FQDN"
+  description = "PostgreSQL server FQDN"
   value       = module.postgres.fqdn
 }
 
 output "cosmosdb_endpoint" {
-  description = "Cosmos DB endpoint"
+  description = "CosmosDB endpoint"
   value       = module.cosmosdb.endpoint
 }
 
-output "public_lb_ip" {
-  description = "Public load balancer IP"
-  value       = module.public_lb.public_ip_addresses
+output "kube_config" {
+  description = "Kubernetes config"
+  value       = module.aks.kube_config_raw
+  sensitive   = true
+}
+
+output "kong_service_ip" {
+  description = "Kong service IP address"
+  value       = module.helm.kong_service_ip
 }
 
 output "vnet_id" {
-  description = "VNet ID"
+  description = "Virtual Network ID"
   value       = module.networking.vnet_id
 }
 
-output "subnet_ids" {
-  description = "Subnet IDs"
-  value       = module.networking.subnet_ids
+output "application_nsg_ids" {
+  description = "Application NSG IDs"
+  value       = module.networking.app_nsg_ids
 }
 
-output "key_vault_name" {
-  description = "Key Vault name"
-  value       = azurerm_key_vault.main.name
+output "application_subnet_ids" {
+  description = "Application subnet IDs"
+  value       = module.networking.app_subnet_ids
 }
 
-output "key_vault_uri" {
-  description = "Key Vault URI"
-  value       = azurerm_key_vault.main.vault_uri
-}
-
-output "dns_name_servers" {
-  description = "DNS name servers"
-  value       = var.create_dns_zone ? module.dns.name_servers : []
-}
-
-output "kubeconfig_command" {
-  description = "Command to get kubeconfig"
-  value       = "az aks get-credentials --resource-group ${azurerm_resource_group.aks.name} --name ${module.aks.cluster_name}"
+output "application_status" {
+  description = "Application deployment status"
+  value       = module.helm.application_status
 }
