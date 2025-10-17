@@ -1,0 +1,42 @@
+replicaCount: ${replica_count}
+
+persistence:
+  size: ${persistence_size}
+
+service:
+  type: ${service_type}
+  ports:
+    client: 9092
+    external: 9094
+  annotations:
+    service.beta.kubernetes.io/azure-load-balancer-internal: "${load_balancer_internal}"
+
+externalAccess:
+  enabled: true
+  service:
+    type: ${service_type}
+    port: 9094
+  autoDiscovery:
+    enabled: true
+
+resources:
+  requests:
+    memory: ${resources.requests.memory}
+    cpu: ${resources.requests.cpu}
+  limits:
+    memory: ${resources.limits.memory}
+    cpu: ${resources.limits.cpu}
+
+# ZooKeeper Configuration
+zookeeper:
+  enabled: true
+  replicaCount: 3
+  persistence:
+    size: 20Gi
+  resources:
+    requests:
+      memory: 256Mi
+      cpu: 250m
+    limits:
+      memory: 512Mi
+      cpu: 500m

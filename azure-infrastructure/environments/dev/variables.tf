@@ -101,8 +101,6 @@ variable "cosmos_sql_databases" {
   }))
 }
 
-# REMOVED Kong-specific variables - applications define their own deployments
-
 variable "infrastructure_applications" {
   description = "Infrastructure-level applications to deploy (like ingress controllers, monitoring, etc.)"
   type = map(object({

@@ -47,10 +47,10 @@ variable "tags" {
   description = "Common tags"
   type        = map(string)
   default     = {
-    environment = var.environment
+    # environment = var.environment
     owner       = "DevOps"
-    project     = "Azure"
-    location    = var.location
+    project     = "Bankina"
+    # location    = var.location
   }
 }
 
