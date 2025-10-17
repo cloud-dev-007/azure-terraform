@@ -17,8 +17,8 @@ terraform {
   }
 
   backend "azurerm" {
-    resource_group_name  = "tfstate"
-    storage_account_name = "tfstate${replace(lower(var.environment), "-", "")}"
+    resource_group_name  = "bankina-test-rg"
+    storage_account_name = "bankinatfstate"
     container_name       = "tfstate"
     key                  = "terraform.tfstate"
   }
@@ -94,7 +94,6 @@ module "aks" {
 
 data "azurerm_client_config" "current" {}
 
-# Create Key Vault for secrets management
 module "keyvault" {
   source = "../azure-terraform-modules/modules/keyvault"
 
@@ -142,12 +141,4 @@ module "cosmosdb" {
   kind          = var.cosmos_kind
   sql_databases = var.cosmos_sql_databases
   tags          = var.tags
-}
-
-# ALL applications (infrastructure + business) deployed via single Helm module
-module "applications" {
-  source = "../azure-terraform-modules/modules/helm"
-
-  applications     = var.applications
-  create_namespaces = var.create_namespaces
 }

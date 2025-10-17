@@ -23,7 +23,7 @@ module "kafka" {
     "transactionStateLogReplicationFactor" = 2
     
     # External Access (if needed)
-    "externalAccess.enabled" = "true"
+    "externalAccess.enabled" = "true" 
     "externalAccess.service.type" = "LoadBalancer"
     "externalAccess.service.port" = "9094"
     "externalAccess.autoDiscovery.enabled" = "true"
